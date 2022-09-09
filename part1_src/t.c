@@ -29,8 +29,8 @@ int printu(u32 x)
 int printx(u32 x)
 {
 	BASE = 16; // base for hex
-	putchar('0');
-	putchar('x');
+	putchar('0'); // prefix for hex
+	putchar('x'); // prefix for hex
 	if(x==0)
 	{
 		putchar('0');
@@ -44,7 +44,7 @@ int printd(int x)
 {
 	if(x < 0)
 	{
-		putchar('-');
+		putchar('-'); // if its negative put negative sign at the beginning
 	}
 	printu(x);
 
