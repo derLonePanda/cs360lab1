@@ -12,19 +12,89 @@ int rpu(u32 x)
 		putchar(c);
 	}
 }
-int prints(char *s);
+int prints(char *s)
+{
+	while(*s)
+	{
+		putchar(*s);
+		s++;
+	}
+}
 int printu(u32 x)
 {
 	(x==0)? putchar('0') : rpu(x);
 	putchar(' ');
 }
 
-int printx(u32 x);
-int printd(int x);
-int myprintf(char *fmt, ...);
+int printx(u32 x)
+{
+	BASE = 16; // base for hex
+	putchar('0');
+	putchar('x');
+	if(x==0)
+	{
+		putchar('0');
+	}
+	else
+	{
+		rpu(x);
+	}
+}
+int printd(int x)
+{
+	if(x < 0)
+	{
+		putchar('-');
+	}
+	printu(x);
+
+}
+int myprintf(char *fmt, ...)
+{
+	char *cp = fmt; // pointer to format string
+	int *ip = ((int *)getebp()) + 3; // gets the ebp stack frame then moves 3 positions
+	while(*cp)
+	{
+		if(*cp == "%")
+		{
+			cp++;
+			if(*cp == 'c')
+			{
+				putchar(*ip);
+			}
+			if(*cp == 's')
+			{
+				prints(*ip);
+			}
+			if(*cp == 'u')
+			{
+				printu(*ip);
+			}
+			if(*cp == 'x')
+			{
+				printx(*ip);
+			}
+			if(*cp == 'd')
+			{
+				printd(*ip);
+			}
+			
+		}
+		else
+		{
+			putchar(*cp);
+			if(*cp == '\n')
+			{
+				putchar('\r');
+			}
+		}
+
+	}
+}
 int main(int argc, char *argv[], char *env[])
 {
-
+	myprintf("argc = %d\nargv[0]=%s\nenv[0]=%s", argc, argv[0], env[0]);
+	myprintf("char=%c string=%s dec=%u hex=%x neg=%d\n", 'A', "this is a test", 100, 100, -100);
 }
 
 

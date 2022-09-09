@@ -7,7 +7,7 @@
 # If you script is not compiling, try running this line in your command line
 # sudo apt install gcc-multilib
 
-gcc -m32 t.c
+gcc -m32 t.c ts.s
 
 # this is running your generated executable.
 # the $@ is bash syntax to allow you to pass arguments when you run the script. 
